@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Создание задачи</title>
+</head>
+<body>
+
+<h1>Создание задачи</h1>
+
+<form th:action="@{/web/tasks}" th:object="${taskRequest}" method="post">
+
+  <label>Название:</label>
+  <input type="text" th:field="*{title}">
+  <span th:errors="*{title}" style="color:red"></span>
+
+  <br><br>
+
+  <label>Описание:</label>
+  <textarea th:field="*{description}"></textarea>
+
+  <br><br>
+
+  <label>Приоритет:</label>
+  <select th:field="*{priority}">
+    <option th:each="priority : ${priorities}"
+            th:value="${priority}"
+            th:text="${priority}">
+    </option>
+  </select>
+
+  <br><br>
+
+  <button type="submit">Создать</button>
+
+</form>
+
+<br>
+<a th:href="@{/web/tasks}">Назад к списку</a>
+
+</body>
+<nav th:replace="~{layout :: navbar}"></nav>
+<hr>
+
+</html>

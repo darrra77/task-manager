@@ -1,0 +1,24 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/taskmanager
+    username: ${DB_USERNAME:taskuser}
+    password: ${DB_PASSWORD:taskpass123}
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+  h2:
+    console:
+      enabled: true
+
+app:
+  name: Task Manager
+  max-tasks: 3
+  default-priority: MEDIUM
+
+jwt:
+  secret: ${JWT_SECRET}
+  expiration: 86400000

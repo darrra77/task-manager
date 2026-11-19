@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Task Manager</title>
+</head>
+<body>
+
+<nav th:fragment="navbar">
+  <a th:href="@{/web/tasks}">Список задач</a>
+  |
+  <a th:href="@{/web/tasks/new}">Создать задачу</a>
+  |
+  <form th:action="@{/logout}" method="post" style="display:inline;">
+    <button type="submit">Выйти</button>
+  </form>
+</nav>
+
+</body>
+</html>

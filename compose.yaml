@@ -1,0 +1,34 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: taskmanager-postgres
+    environment:
+      POSTGRES_DB: taskmanager
+      POSTGRES_USER: ${DB_USERNAME:-taskuser}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-taskpass123}
+    ports:
+      - "5432:5432"
+    volumes:
+      - taskmanager_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/taskmanager
+      DB_USERNAME: ${DB_USERNAME:-taskuser}
+      DB_PASSWORD: ${DB_PASSWORD:-taskpass123}
+      JWT_SECRET: ${JWT_SECRET}
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+volumes:
+  taskmanager_pgdata:
+    external: true

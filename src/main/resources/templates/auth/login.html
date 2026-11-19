@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Вход - Task Manager</title>
+</head>
+<body>
+
+<h1>Вход в Task Manager</h1>
+
+<p th:if="${param.error}" style="color: red;">
+  Неверный логин или пароль
+</p>
+
+<p th:if="${param.logout}" style="color: green;">
+  Вы вышли из аккаунта
+</p>
+
+<form th:action="@{/login}" method="post">
+
+  <label for="username">Email:</label>
+  <input type="text" id="username" name="username" required>
+
+  <br><br>
+
+  <label for="password">Пароль:</label>
+  <input type="password" id="password" name="password" required>
+
+  <br><br>
+
+  <button type="submit">Войти</button>
+
+</form>
+
+</body>
+</html>

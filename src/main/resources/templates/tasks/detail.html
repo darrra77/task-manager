@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ru"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <meta charset="UTF-8">
+  <title>Информация о задаче</title>
+</head>
+<body>
+
+<h1>Информация о задаче</h1>
+
+<p>ID: <span th:text="${task.id}"></span></p>
+
+<p>Название: <span th:text="${task.title}"></span></p>
+
+<p>Описание: <span th:text="${task.description}"></span></p>
+
+<p>Приоритет: <span th:text="${task.priority}"></span></p>
+
+<p>Статус: <span th:text="${task.status}"></span></p>
+
+<a th:href="@{/web/tasks/{id}/edit(id=${task.id})}">
+  Редактировать
+</a>
+
+<br><br>
+
+<form th:action="@{/web/tasks/{id}/delete(id=${task.id})}"
+      method="post"
+      sec:authorize="hasRole('ADMIN')">
+
+  <button type="submit">Удалить задачу</button>
+
+</form>
+
+<a th:href="@{/web/tasks}">Назад к списку</a>
+
+</body>
+<nav th:replace="~{layout :: navbar}"></nav>
+<hr>
+
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Список задач</title>
+</head>
+<body>
+
+<h1>Task Manager</h1>
+
+<h2>Список задач</h2>
+
+<p th:if="${#lists.isEmpty(tasks)}">
+    Задач пока нет
+</p>
+
+<table th:unless="${#lists.isEmpty(tasks)}" border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Название</th>
+        <th>Приоритет</th>
+        <th>Статус</th>
+        <th>Действие</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="task : ${tasks}">
+        <td th:text="${task.id}"></td>
+        <td th:text="${task.title}"></td>
+        <td th:text="${task.priority}"></td>
+        <td th:text="${task.status}"></td>
+        <td>
+            <a th:href="@{/web/tasks/{id}(id=${task.id})}">
+                Подробнее
+            </a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+<nav th:replace="~{layout :: navbar}"></nav>
+<hr>
+
+</html>

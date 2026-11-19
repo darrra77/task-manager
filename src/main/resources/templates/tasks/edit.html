@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Редактирование задачи</title>
+</head>
+<body>
+
+<h1>Редактирование задачи</h1>
+
+<form th:action="@{/web/tasks/{id}/edit(id=${taskId})}"
+      th:object="${taskRequest}"
+      method="post">
+
+  <label>Название:</label>
+  <input type="text" th:field="*{title}">
+  <span th:errors="*{title}" style="color:red"></span>
+
+  <br><br>
+
+  <label>Описание:</label>
+  <textarea th:field="*{description}"></textarea>
+
+  <br><br>
+
+  <label>Приоритет:</label>
+  <select th:field="*{priority}">
+    <option th:each="priority : ${priorities}"
+            th:value="${priority}"
+            th:text="${priority}">
+    </option>
+  </select>
+
+  <br><br>
+
+  <button type="submit">Сохранить изменения</button>
+
+</form>
+
+<br>
+
+<a th:href="@{/web/tasks/{id}(id=${taskId})}">
+  Отмена
+</a>
+
+</body>
+<nav th:replace="~{layout :: navbar}"></nav>
+<hr>
+
+</html>
